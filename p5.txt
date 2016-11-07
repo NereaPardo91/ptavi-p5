@@ -94,23 +94,54 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 9. Fijémonos en las tramas siguientes a la número 46:
  ** ¿Se registra con éxito en el primer intento?
+	No, el servidor responde con un 401, Unauthorized
  ** ¿Cómo sabemos si el registro se ha realizado correctamente o no?
+	Con una respuesta del servidor 200 OK
  ** ¿Podrías identificar las diferencias entre el primer intento y el segundo de registro? (fíjate en el tamaño de los paquetes y mira a qué se debe el cambio)
+	El primer intento el paquete tiene un tamaño de 523 bytes y el segundo de 712 bytes. Esto se debe a que en el segundo intento se incluye la linea Authorization
  ** ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades.
-
+	Mirando en Session Initiation Protocol:
+		Message Header:
+		Expires: 3600s
 
 10. Una vez registrados, podemos efectuar una llamada. Vamos a probar con el servicio de eco de Ekiga que nos permite comprobar si nos hemos conectado correctamente. El servicio de eco tiene la dirección sip:500@ekiga.net. Veamos el INVITE de cerca.
  ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP?
- ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
- ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
- ** ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
-
+	Si, en Session Initiation Protocol:
+		Message Header:
+		From: Gregorio Robles, sip:grex@ekiga.net
+ ** ¿Qué es lo que contiene el cuerpo de la trama? 
+	Mirando Session Initiation Protocol:
+		Message Body: 
+		Aqui vemos que contiene campos de nombre de sesion, Creador, Informacion de Conexion...
+    ¿En qué formato/protocolo está?
+	Mirando Session Initiation Protocol:
+		Message Body: SDP
+ ** ¿Tiene éxito el primer intento?
+	No
+    ¿Cómo lo sabes?
+	Por que el servidor le envia una trama requiriendo autenticacion (407 Proxy Authentication Required)
+ ** ¿En qué se diferencia el segundo INVITE más abajo del primero? 
+	En el tamaño, el primer INVITE tiene 982 bytes y el segundo INVITE tiene 1181 bytes
+    ¿A qué crees que se debe esto?
+	A que en el segundo INVITE en Session Initiation Protocol:
+		Message Header: se añade el campo,
+		Proxy-Authorization: campo necesario para establecer la conexion
 
 11. Una vez conectado, estudia el intercambio de tramas.
  ** ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos?
+	RTP: transmision de informacion en tiempo real
+	H.261: compresion de audio y video
+	RTCP: informacion de control de sobre una trama RTP
+	ARP: averigua la direccion fisica (hardware) de una maquina
  ** ¿Cuál es el tamaño de paquete de los mismos?
+	RTP: 214 bytes
+	H.261: Va variando, 1000, 1011, 1052... [bytes]
  ** ¿Se utilizan bits de padding?
+	Mirando en Real Time Protocol
+		Padding = False
+	No, se utilizan
  ** ¿Cuál es la periodicidad de los paquetes que se envían?
+	
  ** ¿Cuántos bits/segundo estamos enviando?
 
 
