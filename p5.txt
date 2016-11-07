@@ -145,7 +145,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Cuál es la periodicidad de los paquetes que se envían?
 	Estamos midiendo nuestro time en bytes --> Payload = 160 bytes
 	Viendo el valor de delta entre nuestros paquetes vemos que la velocidad de transmision es de 64kbps
-	Entonces podemos calcular el numero de paquetes que enviamos --> 64000/(160x8) = 50 paquetes, a una velocidad de 1280bps 
+	Entonces podemos calcular el numero de paquetes que enviamos --> 64000/(160x8) = 50 paquetes, a una velocidad de 1280bps -->Periodicidad = 1/50 
  ** ¿Cuántos bits/segundo estamos enviando?
 	1280bps
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
@@ -237,17 +237,36 @@ Captura de una sesión SIP
 Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.net. Tendrás que dar de alta una cuenta en www.ekiga.net con el navegador. Recuerda también que has de comenzar a capturar tramas antes de arrancar Ekiga para ver todo el proceso en el que participa SIP. Para realizar los siguientes ejercicios, deberás crearte una cuenta en ekiga.net y darte de alta la lanzar la aplicación.
 
 17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
- ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
+ ** ¿Es necesario el uso de DNS y STUN? 
+	No
+    ¿Por qué?
+	Por que estamos en el dominio publico, por lo que no necesitamos hayar la IP publica asociada a una privada
  ** ¿Son diferentes el registro y la descripción de la sesión?
-
-
+	En la captura anterior en el campor allow teniamos:
+		Allow: INVITE,ACK,OPTIONS,BYE,CANCEL,NOTIFY,REFER,MESSAGE
+	En esta nueva captura el campo allow es mas extenso, permitiendo mas metodos
+		Allow: INVITE,ACK,OPTIONS,BYE,CANCEL,SUBSCRIBE,NOTIFY,REFER,MESSAGE,INFO,PING,PRACK
+	
 18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
  ** ¿Cuántos flujos tenemos?
+	Mirando en Telephony --> RTP --> RTP Streams comprobamos que tenemos 2 flujos de audio, uno en un sentido y otro en el otro
  ** ¿Cuál es su periodicidad?
+	Como el TimeStamp es el mismo que en la anterior captura se mantiene la periodicidad, 1/50
  ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
- ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
- ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net?
-
+	1º flujo en sentido 212.128.254.145 --> 212.79.111.155
+		Valor máximo delta: 30.55ms
+		Valor máximo jitter: 5.05ms
+		Valor medio jitter: 3.82ms
+	2º flujo en sentido 212.79.111.155 --> 212.128.254.145
+		Valor máximo delta: 94.96ms
+		Valor máximo jitter: 8.13ms
+		Valor medio jitter: 2.32ms
+ ** ¿Podrías reproducir la conversación desde Wireshark? 
+	Si
+    ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
+	Desde Telephony --> VoIP Calls --> Seleccionamos la llamada --> Play Streams
+ ** ¿Sabrías decir qué tipo de servicio ofrece sip:music@ipteL.net?
+	Servicio de canciones
 
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
