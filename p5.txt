@@ -34,7 +34,6 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 4. Observa por encima el flujo de tramas en el menú de Statistics en IO Graphs. La captura que estamos viendo incluye desde la inicialización (registro) de la aplicación hasta su finalización, con una llamada entremedias.
  ** Filtra por sip para conocer cuándo se envían paquetes SIP. ¿En qué segundos tienen lugar esos envíos?
 	7, 14, 16, 38, 39, 55
-	
  ** Y los paquetes con RTP, ¿cuándo se envían?
 	Empieza en el segundo 16 y finaliza en el 22 y vuelve a comenzar en 22 para acabar en el 38
 
@@ -44,19 +43,33 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Qué servicio es el utilizado en estas tramas?
 	DNS
  ** ¿Cuál es la dirección IP del servidor de nombres del ordenador que ha lanzado Ekiga?
+	80.58.61.250
  ** ¿Qué dirección IP (de ekiga.net) devuelve el servicio de nombres?
+	86.64.162.35
  ** ¿Por qué se pide también para 35.162.64.86.in-addr.arpa?
-
+	Por que es la inversa de 86.64.162.35. 
 
 6. A continuación, hay más de una docena de tramas TCP/HTTP.
  ** ¿Podrías decir la URL que se está pidiendo?
+     Miramos en la trama HTTP GET
+	request-URI:
+	http://ekiga.net/ip/
  ** ¿Qué user agent (UA) la está pidiendo?
+	Host:
+	Ekiga
  ** ¿Qué devuelve el servidor?
- ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo que está respondiendo el servidor?
+     Miramos en la trama HTTP /1.1 200 OK (text/html)
+	Line-based
+	83.36.48.212
+ ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? 
+	La IP pública de nuestro ordenar
+    ¿Qué es, entonces, lo que está respondiendo el servidor?
+	Su IP pública para que pueda comunicarse.
 
 
 7. Hasta la trama 45 se puede observar una secuencia de tramas del protocolo STUN.
  ** ¿Por qué crees que se hace uso de este protocolo en esta captura? Busca en la Wikipedia.
+	
  ** ¿Estamos tras un NAT?
 
 
