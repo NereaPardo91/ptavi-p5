@@ -201,10 +201,10 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
     ¿Por qué hay varios SSRCs? 
 	Uno para el audio y otro para el video
     ¿Hay CSRCs?
-	En el paquete RTP en Real-Time Transport Protocol
+	En la trama RTP en Real-Time Transport Protocol
 		Contributing Source identifiers count: 0
 	No hay CSRCS
-	En el paquete H.261 en Real-Time Transport Protocol
+	En la trama H.261 en Real-Time Transport Protocol
 		Contributing Source identifiers count: 0
 	No hay CSRCS
 
@@ -214,13 +214,15 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿En qué trama(s)?
 	924, 925, 927 y 933
  ** ¿Por qué crees que se envía varias veces?
-	Porque hasta el paquete 938 no se recibe un mensaje 200 OK. Esto se debe a que UDP es un protocolo no fiable y se retransmiten las tramas para asegurar que el paquete llega a su destino.
+	Porque hasta la trama 938 no se recibe un mensaje 200 OK. Esto se debe a que UDP es un protocolo no fiable y se retransmiten las tramas para asegurar que el paquete llega a su destino.
 
 16. Finalmente, se cierra la aplicación de VozIP.
  ** ¿Por qué aparece una instrucción SIP del tipo REGISTER?
+	Por que el cliente le envia un REGISTER con el campo Expires a 0 para que le borre de la sesion
  ** ¿En qué trama sucede esto?
+	En las tramas 950 y 952
  ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
-
+	En el campo Expires, al principio es 3600 y al final 0
 
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
