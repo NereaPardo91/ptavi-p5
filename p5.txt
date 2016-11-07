@@ -226,7 +226,6 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
 	En el campo Expires, al principio es 3600 y al final 0
 
-
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 ================================================================================
